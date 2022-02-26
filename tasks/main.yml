@@ -1,15 +1,38 @@
 ---  # tasks file for rkhunter
 
 - name: Install rkhunter
-  apt:
+  ansible.builtin.package:
     name: rkhunter
     update_cache: true
-    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-    state: present
+    state: latest
   tags:
     - install
     - rkhunter
     - rkhunter-install
+
+- name: Create temp directory if it does not exist
+  ansible.builtin.file:
+    path: /var/lib/rkhunter/tmp
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - install
+    - rkhunter
+    - rkhunter-install
+
+- name: Configure /etc/rkhunter.conf.local
+  ansible.builtin.copy:
+    dest: /etc/rkhunter.conf.local
+    content: 'ALLOW_SSH_PROT_V1=2'
+    mode: '0644'
+    owner: root
+    group: root
+  tags:
+    - configuration
+    - rkhunter
+    - rkhunter-configuration
 
 - name: Configure /etc/rkhunter.conf
   template:

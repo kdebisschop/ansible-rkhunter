@@ -91,7 +91,7 @@
 #
 # If the mirrors file is read-only, then the '--versioncheck' command-line
 # option can only be used if this option is set to '0'.
-# 
+#
 # The default value is '1'.
 #
 ROTATE_MIRRORS={{ rkhunter_rotate_mirrors }}
@@ -195,7 +195,7 @@ SCRIPTDIR=/usr/share/rkhunter/scripts
 #
 #BINDIR=/bin /usr/bin /sbin /usr/sbin
 #BINDIR=+/usr/local/bin +/usr/local/sbin
-BINDIR={{ rkhunter_bindir }}
+BINDIR={{ rkhunter_bindir }}
 
 #
 # This option specifies the default language to use. This should be similar to
@@ -243,7 +243,7 @@ LOGFILE={{ rkhunter_logfile }}
 #
 # The default value is '0'.
 #
-APPEND_LOG={{ rkhunter_append_log }}
+APPEND_LOG={{ rkhunter_append_log }}
 
 #
 # Set the following option to '1' if the log file is to be copied when rkhunter
@@ -255,7 +255,7 @@ APPEND_LOG={{ rkhunter_append_log }}
 #
 # The default value is '0'.
 #
-COPY_LOG_ON_ERROR={{ rkhunter_copy_log_on_error }}
+COPY_LOG_ON_ERROR={{ rkhunter_copy_log_on_error }}
 
 #
 # Set the following option to enable the rkhunter check start and finish times
@@ -270,7 +270,7 @@ COPY_LOG_ON_ERROR={{ rkhunter_copy_log_on_error }}
 #
 # The default value is not to use syslog.
 #
-USE_SYSLOG={{ rkhunter_use_syslog }}
+USE_SYSLOG={{ rkhunter_use_syslog }}
 
 #
 # Set the following option to '1' if the second colour set is to be used. This
@@ -309,7 +309,7 @@ AUTO_X_DETECT=1
 #
 # The default value is 'no'.
 #
-ALLOW_SSH_ROOT_USER={{ rkhunter_allow_ssh_root_user }}
+ALLOW_SSH_ROOT_USER={{ rkhunter_allow_ssh_root_user }}
 
 #
 # Set this option to '1' to allow the use of the SSH-1 protocol, but note
@@ -643,7 +643,7 @@ ALLOWHIDDENDIR="{{ elem }}"
 # This option may be specified more than once, and may use wildcard characters.
 #
 # The default value is the null string.
-# 
+#
 #ALLOWHIDDENFILE=/usr/sbin/.sshd.hmac
 {% for elem in rkhunter_allowhiddenfile %}
 ALLOWHIDDENFILE="{{ elem }}"
@@ -693,6 +693,9 @@ ALLOWPROCLISTEN="{{ elem }}"
 # The default value is the null string.
 #
 #ALLOWPROMISCIF=eth0
+{% for elem in rkhunter_allowpromiscif %}
+ALLOWPROMISCIF="{{ elem }}"
+{% endfor %}
 
 #
 # This option specifies how rkhunter should scan the '/dev' directory for
@@ -717,6 +720,10 @@ ALLOWPROCLISTEN="{{ elem }}"
 #
 #ALLOWDEVFILE=/dev/shm/pulse-shm-*
 #ALLOWDEVFILE=/dev/shm/sem.ADBE_*
+{% for elem in rkhunter_allowdevfile %}
+ALLOWDEVFILE="{{ elem }}"
+{% endfor %}
+
 
 #
 # Allow the specified process pathnames to use shared memory segments.
@@ -882,7 +889,7 @@ ALLOWPROCLISTEN="{{ elem }}"
 #
 #APP_WHITELIST=""
 
-# 
+#
 # Set this option to scan for suspicious files in directories which pose a
 # relatively higher risk due to user write access.
 #
@@ -893,7 +900,7 @@ ALLOWPROCLISTEN="{{ elem }}"
 #
 # Please consider adding all directories the user the (web)server runs as,
 # and has write access to, including the document root (e.g: '/var/www') and
-# log directories (e.g: '/var/log/httpd'). 
+# log directories (e.g: '/var/log/httpd').
 #
 # This is a space-separated list of directory pathnames. The option may be
 # specified more than once.
@@ -931,7 +938,7 @@ ALLOWPROCLISTEN="{{ elem }}"
 
 #
 # The following options can be used to whitelist network ports which are known
-# to have been used by malware. 
+# to have been used by malware.
 #
 # The PORT_WHITELIST option is a space-separated list of one or more of two
 # types of whitelisting. These are:
@@ -1057,7 +1064,9 @@ PORT_PATH_WHITELIST="{{ elem }}"
 # For both options the default value is the null string.
 #
 #RTKT_DIR_WHITELIST=""
-#RTKT_FILE_WHITELIST=""
+{% for elem in rkhunter_filewhitelist %}
+RTKT_FILE_WHITELIST="{{ elem }}"
+{% endfor %}
 
 #
 # The following option can be used to whitelist shared library files that would
@@ -1203,10 +1212,10 @@ PORT_PATH_WHITELIST="{{ elem }}"
 #
 # You should only activate this feature as part of a more thorough
 # investigation, which should be based on relevant best practices and
-# procedures. 
+# procedures.
 #
 # Enabling this feature implies you have the knowledge to interpret the
-# results properly. 
+# results properly.
 #
 # The default value is the null string.
 #
