@@ -1064,6 +1064,10 @@ PORT_PATH_WHITELIST="{{ elem }}"
 # For both options the default value is the null string.
 #
 #RTKT_DIR_WHITELIST=""
+{% for elem in rkhunter_dirwhitelist %}
+RTKT_DIR_WHITELIST="{{ elem }}"
+{% endfor %}
+#RTKT_FILE_WHITELIST=""
 {% for elem in rkhunter_filewhitelist %}
 RTKT_FILE_WHITELIST="{{ elem }}"
 {% endfor %}
